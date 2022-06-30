@@ -9,20 +9,29 @@ package main
 
 import (
 	"logging"
-	"time"
 )
 
 func main() {
-    log := logging.NewLogger()
+	// set level with environment variables
+	log := logging.NewLogger()
 
-    // level can be set as an environment varirable or through setting the level manually
-    log.Level = logging.DebugLevel
+	// you can also set the level directly
+	log.Level = logging.DebugLevel
 
-    log.Info("I'm an info log")
-    time.Sleep(1 * time.Second)
-    log.Debug("I'm a debug log")
+	log.Info("I'm an info log")
+	log.Debug("I'm a debug log")
 
-    // You can also call the logger without defining a logger
-    logging.Infof("hey there %s", "Gopher")
+    // log with format specifiers
+	log.Infof("hey there %s", "Gopher")
+
+
+	log.Error("error always prints")
+
+	// You can also call without defining a logger but this relies on env vars
+	// for example this won't print unless LOG_LEVEL=debug is set
+	logging.Debugf("hey there again %s", "Gopher")
+
+
+	log.Fatal("fatal passes through to log.Fatal in std lib")
 }
 ```
