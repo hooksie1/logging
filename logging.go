@@ -16,6 +16,7 @@ var (
 type Logger struct {
 	Level Level
 	*log.Logger
+	contextMessage string
 }
 
 const (
@@ -48,13 +49,32 @@ func NewLogger() *Logger {
 	return &Logger{
 		l,
 		logger,
+		"",
 	}
 }
 
 func (l *Logger) log(lvl Level, s interface{}) {
 	if lvl <= l.Level {
+		if l.contextMessage != "" {
+			l.Printf("%s, %s\n", s, l.contextMessage)
+		}
+
 		l.Println(s)
 	}
+
+}
+
+func (l *Logger) clone() *Logger {
+	copy := *l
+	return &copy
+}
+
+func (l *Logger) WithContext(s string) *Logger {
+	c := l.clone()
+	c.contextMessage = s
+
+	return c
+
 }
 
 func (l *Logger) Error(s interface{}) {
