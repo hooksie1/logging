@@ -8,7 +8,7 @@ This is a simple logging package for Go.
 package main
 
 import (
-	"logging"
+	"github.com/hooksie1/logging"
 )
 
 func main() {
