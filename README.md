@@ -56,8 +56,9 @@ func main() {
 	}
 	defer f.Close()
 
-	// set level with environment variables
+
 	log := logging.NewLogger()
+	// use SetOutput from std logger
 	log.Logger.SetOutput(f)
 }
 ```
