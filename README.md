@@ -54,6 +54,7 @@ func main() {
 	if err != nil {
 		stdlog.Fatal("error")
 	}
+	defer f.Close()
 
 	// set level with environment variables
 	log := logging.NewLogger()
