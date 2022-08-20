@@ -35,3 +35,28 @@ func main() {
 	log.Fatal("fatal passes through to log.Fatal in std lib")
 }
 ```
+
+## Output
+
+Since this uses the default Go logger under the hood, setting an output file instead of stdout is easy.
+
+``` go
+package main
+
+import (
+	stdlog "log"
+
+	"github.com/hooksie1/logging"
+)
+
+func main() {
+	f, err := os.OpenFile("test.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0664)
+	if err != nil {
+		stdlog.Fatal("error")
+	}
+
+	// set level with environment variables
+	log := logging.NewLogger()
+	log.Logger.SetOutput(f)
+}
+```

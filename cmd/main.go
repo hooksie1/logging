@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	"logging"
 	"net/http"
+
+	"github.com/hooksie1/logging"
 )
 
 func context(r *http.Request) string {
