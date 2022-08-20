@@ -56,10 +56,10 @@ func NewLogger() *Logger {
 func (l *Logger) log(lvl Level, s interface{}) {
 	if lvl <= l.Level {
 		if l.contextMessage != "" {
-			l.Printf("%s, %s\n", s, l.contextMessage)
+			l.Printf("%s [%s]\n", s, l.contextMessage)
+		} else {
+			l.Println(s)
 		}
-
-		l.Println(s)
 	}
 
 }
@@ -78,45 +78,45 @@ func (l *Logger) WithContext(s string) *Logger {
 }
 
 func (l *Logger) Error(s interface{}) {
-	m := fmt.Sprintf("ERROR: %s", s)
+	m := fmt.Sprintf("[ERROR] %s", s)
 	l.log(ErrorLevel, m)
 }
 
 func (l *Logger) Errorf(format string, s ...interface{}) {
-	f := fmt.Sprintf("ERROR: %s", format)
+	f := fmt.Sprintf("[ERROR] %s", format)
 	m := fmt.Sprintf(f, s...)
 	l.log(ErrorLevel, m)
 }
 
 func (l *Logger) Info(s interface{}) {
-	m := fmt.Sprintf("INFO: %s", s)
+	m := fmt.Sprintf("[INFO] %s", s)
 	l.log(InfoLevel, m)
 }
 
 func (l *Logger) Infof(format string, s ...interface{}) {
-	f := fmt.Sprintf("INFO: %s", format)
+	f := fmt.Sprintf("[INFO] %s", format)
 	m := fmt.Sprintf(f, s...)
 	l.log(InfoLevel, m)
 }
 
 func (l *Logger) Debug(s interface{}) {
-	m := fmt.Sprintf("DEBUG: %s", s)
+	m := fmt.Sprintf("[DEBUG] %s", s)
 	l.log(DebugLevel, m)
 }
 
 func (l *Logger) Debugf(format string, s ...interface{}) {
-	f := fmt.Sprintf("DEBUG: %s", format)
+	f := fmt.Sprintf("[DEBUG] %s", format)
 	m := fmt.Sprintf(f, s...)
 	l.log(DebugLevel, m)
 }
 
 func (l *Logger) Fatal(s interface{}) {
-	m := fmt.Sprintf("FATAL: %s", s)
+	m := fmt.Sprintf("[FATAL] %s", s)
 	l.Logger.Fatal(m)
 }
 
 func (l *Logger) Fatalf(format string, s ...interface{}) {
-	f := fmt.Sprintf("FATAL: %s", format)
+	f := fmt.Sprintf("[FATAL] %s", format)
 	m := fmt.Sprintf(f, s...)
 	l.Logger.Fatalf(format, m)
 }
